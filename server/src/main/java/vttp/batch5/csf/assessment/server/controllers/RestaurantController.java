@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import vttp.batch5.csf.assessment.server.models.MenuItem;
 import vttp.batch5.csf.assessment.server.models.Order;
 import vttp.batch5.csf.assessment.server.models.Response;
 import vttp.batch5.csf.assessment.server.services.RestaurantService;
@@ -45,11 +46,17 @@ public class RestaurantController {
 
       Order order = restaurantService.getOrder(payload);
       Response response = restaurantService.processRequest(order);
+
+      float totalPrice = 0;
+      for (MenuItem item: order.getItems()) {
+        float temp = item.getPrice() * item.getQuantity();
+        totalPrice += temp;
+      }
       
       JsonObject jo = Json.createObjectBuilder()
         .add("orderId", order.getOrder_id())
         .add("paymentId", response.getPayment_id())
-        .add("total", restaurantService.getTotalPrice())
+        .add("total", totalPrice)
         .add("timestamp", response.getTimestamp().getTime())
         .build();
 

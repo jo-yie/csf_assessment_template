@@ -28,7 +28,6 @@ public class RestaurantService {
 
   private String urlEndpoint = "https://payment-service-production-a75a.up.railway.app/api/payment";
   private RestTemplate restTemplate = new RestTemplate(); 
-  float totalPrice = 0;
 
   // mysql 
   @Autowired
@@ -96,7 +95,8 @@ public class RestaurantService {
   }
 
   private String buildRequest(Order order) {
-
+    
+    float totalPrice = 0;
     
     for (MenuItem item: order.getItems()) {
       float temp = item.getPrice() * item.getQuantity();
@@ -141,10 +141,6 @@ public class RestaurantService {
     order.setItems(items);
 
     return order;
-  }
-
-  public float getTotalPrice() { 
-    return totalPrice;
   }
 
 }

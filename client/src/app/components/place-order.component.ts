@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CartStore } from '../cart.store';
 import { filter, map } from 'rxjs';
-import { Cart, MenuItem, NewMenuItem, Order } from '../models';
+import { Cart, MenuItem, NewMenuItem, Order, ResponseObject } from '../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RestaurantService } from '../restaurant.service';
@@ -18,6 +18,8 @@ export class PlaceOrderComponent implements OnInit {
   private cartStore = inject(CartStore);
   private router = inject(Router);
   private restaurantService = inject(RestaurantService);
+
+  tempString: any
 
   cart$ = this.cartStore.menuItems$;
   cartItems: MenuItem[] = [];
@@ -92,6 +94,15 @@ export class PlaceOrderComponent implements OnInit {
     this.restaurantService.postOrder(transformedOrder).subscribe({
       next: (response) => {
         console.log(">>>Response: ", response)
+
+        let jsonObj = JSON.parse(JSON.stringify(response));
+        let responseObject = jsonObj as ResponseObject;
+
+        sessionStorage.setItem('order_id', responseObject.orderId);
+        sessionStorage.setItem('payment_id', responseObject.paymentId); 
+        sessionStorage.setItem('date', responseObject.timestamp.toString());
+        sessionStorage.setItem('total', responseObject.total.toString())
+
         this.router.navigate(['/confirmation']);
       }, 
       error: (err) => {

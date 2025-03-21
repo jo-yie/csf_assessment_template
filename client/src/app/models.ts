@@ -23,3 +23,10 @@ export interface Order {
     password: string,
     items: NewMenuItem[]
 }
+
+export interface ResponseObject { 
+    orderId: string, 
+    paymentId: string, 
+    total: number,
+    timestamp: number
+}
