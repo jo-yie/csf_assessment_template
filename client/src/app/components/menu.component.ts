@@ -3,6 +3,7 @@ import { RestaurantService } from '../restaurant.service';
 import { Observable } from 'rxjs';
 import { MenuItem } from '../models';
 import { CartStore } from '../cart.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -14,6 +15,7 @@ export class MenuComponent {
 
   private restaurantService = inject(RestaurantService);
   private cartStore = inject(CartStore);
+  private router = inject(Router);
 
   // TODO: Task 2
   // get menu from backend
@@ -55,8 +57,9 @@ export class MenuComponent {
   updateCount(menuItem: MenuItem) {
     this.cartStore.menuItems$
       .subscribe((data) => {
-        // console.log(">>>Menu Item:", menuItem.name,  data.filter(i => i.name === menuItem.name).length)
+        console.log(">>>Menu Item:", menuItem.name,  data.filter(i => i.name === menuItem.name).length)
         menuItem.quantity = data.filter(i => i.name === menuItem.name).length
+        // return data.filter(i => i.name === menuItem.name).length
       })
   }
 

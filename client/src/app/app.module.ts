@@ -15,6 +15,8 @@ import { CartStore } from './cart.store';
 
 const appRoutes: Routes = [
   { path: '', component: MenuComponent },
+  { path: 'place-order', component: PlaceOrderComponent },
+  // { path: 'confirmation', component: ConfirmationComponent },
   // { path: 'category/:category', component: CategoryComponent }, 
   // { path: 'checkout', component: ConfirmCheckoutComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '' }

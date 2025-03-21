@@ -30,4 +30,8 @@ export class CartStore extends ComponentStore<Cart> {
     // selectors: functions to read state
     readonly menuItems$ = this.select((state) => state.menuItems);
 
+    resetCart() {
+        this.setState({menuItems: []});
+    }
+
 }
