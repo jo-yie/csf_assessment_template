@@ -2,3 +2,5 @@
 # mongo import statement
 
 mongoimport --host=localhost --port=27017 --db=restaurant --collection=menus --type=json --jsonArray --file=menus.json
+
+mongoimport --uri "mongodb+srv://doadmin:AoM2B0zg95Q8P741@mongodb-cluster-98142bba.mongo.ondigitalocean.com/restaurant?tls=true&authSource=admin&replicaSet=mongodb-cluster" --collection=menus --type=json --jsonArray --file=menus.json
