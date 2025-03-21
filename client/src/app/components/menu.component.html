@@ -10,7 +10,7 @@
 </div>
 
 <!-- each row display a single mene item -->
-<div class="row mb-2">
+<div class="row mb-2" *ngFor="let item of menu$ | async">
   <div class="col">
     <div class="menu-item">
       <div>
@@ -19,10 +19,19 @@
         </button>
       </div>
       <div class="menu-details">
-        <div>Name: <span class="fw-bold"> XXX </span> </div>
+        <div>Name: 
+          <span class="fw-bold"> 
+            {{ item.name }} 
+          </span> 
+        </div>
         <div>Description:
           <span class="fst-italic">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            {{ item.description }}
+          </span>
+        </div>
+        <div>Price:
+          <span>
+            ${{ item.price }}
           </span>
         </div>
         <div></div>
@@ -37,7 +46,7 @@
   </div>
 </div>
 
-<div class="row mb-2">
+<!-- <div class="row mb-2">
   <div class="col">
     <div class="menu-item">
       <div>
@@ -62,4 +71,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
