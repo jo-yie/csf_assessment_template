@@ -12,8 +12,14 @@ export interface Cart {
     menuItems: MenuItem[]
 }
 
-export interface newMenuItem { 
+export interface NewMenuItem { 
     id: string, 
     price: number, 
     quantity: number
+}
+
+export interface Order {
+    username: string, 
+    password: string,
+    items: NewMenuItem[]
 }

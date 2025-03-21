@@ -12,6 +12,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import vttp.batch5.csf.assessment.server.models.MenuItem;
+import vttp.batch5.csf.assessment.server.models.Order;
+import vttp.batch5.csf.assessment.server.models.Response;
+
 
 @Repository
 public class OrdersRepository {
@@ -50,6 +54,40 @@ public class OrdersRepository {
   // TODO: Task 4
   // Write the native MongoDB query for your access methods in the comment below
   //
-  //  Native MongoDB query here
+  // db.orders.insert({
+  //     _id: "hey",
+  //     order_id: "hey", 
+  //     payment_id: "payment id", 
+  //     username: "fred", 
+  //     total: 22, 
+  //     timestamp: 2025-02-02, 
+  //     items: [
+  //         { id: "xxx", price: 7.70, quantity: 2 }, 
+  //         { id: "yyy", price: 7.70, quantity: 1 }
+  //     ]
+  // }
+  // );
+  //
+  public void insertOrder(Order order, Response response) {
+
+    float totalPrice = 0;
+    for (MenuItem item: order.getItems()) {
+        float temp = item.getPrice() * item.getQuantity();
+        totalPrice += temp;
+    }
+
+    Document doc = new Document(); 
+
+    doc.put("_id", order.getOrder_id());
+    doc.put("order_id", order.getOrder_id());
+    doc.put("payment_id", response.getPayment_id());
+    doc.put("username", order.getUsername());
+    doc.put("total", totalPrice);
+    doc.put("timestamp", response.getTimestamp());
+    doc.put("items", order.getItems());
+
+    template.insert(doc, "orders");
+
+  }
   
 }

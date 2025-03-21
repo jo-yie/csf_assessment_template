@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { MenuItem } from "./models";
+import { MenuItem, Order } from "./models";
 
 @Injectable()
 export class RestaurantService {
@@ -14,4 +14,9 @@ export class RestaurantService {
   }
 
   // TODO: Task 3.2
+  postOrder(order: Order) { 
+    var toSend = JSON.stringify(order)
+    return this.http.post<JSON>('/api/food_order', toSend);
+  }
+
 }

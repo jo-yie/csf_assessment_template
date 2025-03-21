@@ -3,9 +3,14 @@ package vttp.batch5.csf.assessment.server.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import vttp.batch5.csf.assessment.server.models.Order;
+import vttp.batch5.csf.assessment.server.models.Response;
 import vttp.batch5.csf.assessment.server.services.RestaurantService;
 
 @RestController
@@ -27,12 +32,38 @@ public class RestaurantController {
     return ResponseEntity.ok()
       .body(restaurantService.getMenu());
 
-    // return ResponseEntity.ok("testing");
   }
 
   // TODO: Task 4
   // Do not change the method's signature
+  @PostMapping("/api/food_order")
   public ResponseEntity<String> postFoodOrder(@RequestBody String payload) {
-    return ResponseEntity.ok("{}");
+
+    System.out.println(payload);
+    
+    try { 
+
+      Order order = restaurantService.getOrder(payload);
+      Response response = restaurantService.processRequest(order);
+      
+      JsonObject jo = Json.createObjectBuilder()
+        .add("orderId", order.getOrder_id())
+        .add("paymentId", response.getPayment_id())
+        .add("total", restaurantService.getTotalPrice())
+        .add("timestamp", response.getTimestamp().getTime())
+        .build();
+
+      return ResponseEntity.ok().body(jo.toString());
+
+    } catch (Exception e) {
+
+      JsonObject jo = Json.createObjectBuilder()
+      .add("error", e.getMessage())
+      .build();
+
+      return ResponseEntity.status(401).body(jo.toString());
+
+    }
+
   }
 }
