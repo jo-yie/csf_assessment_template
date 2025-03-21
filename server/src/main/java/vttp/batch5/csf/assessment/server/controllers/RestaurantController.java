@@ -20,10 +20,10 @@ public class RestaurantController {
   @Autowired
   private RestaurantService restaurantService; 
 
-  @GetMapping("/")
-  public ResponseEntity<Object> get() { 
-    return ResponseEntity.ok().body("hello");
-  }
+  // @GetMapping("/")
+  // public ResponseEntity<Object> get() { 
+  //   return ResponseEntity.ok().body("hello");
+  // }
 
   // TODO: Task 2.2
   // You may change the method's signature
