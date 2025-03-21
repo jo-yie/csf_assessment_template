@@ -1,9 +1,11 @@
 <div class="row mt-3">
   <div class="col d-flex justify-content-between align-items-center">
-    <div class="fs-1 fw-bold text-primary">Menu ($XXX)</div>
+    <div class="fs-1 fw-bold text-primary">
+      Menu ($XXX)
+    </div>
     <div>
-      <button type="button" class="btn btn-primary">
-        Place Order (XXX)
+      <button type="button" class="btn btn-primary" [disabled]="isCartEmpty()">
+        Place Order ({{ getItemCount() | async }})
       </button>
     </div>
   </div>
@@ -14,7 +16,7 @@
   <div class="col">
     <div class="menu-item">
       <div>
-        <button type="button" class="btn btn-warning">
+        <button type="button" class="btn btn-warning" (click)="removeMenuItem(item)">
           <i class="bi bi-x-square"></i>
         </button>
       </div>
@@ -35,10 +37,12 @@
           </span>
         </div>
         <div></div>
-          <div class="text-danger fw-bold">Quantity: XXX</div>
+          <div class="text-danger fw-bold" *ngIf="item.quantity > 0">
+            Quantity: {{ item.quantity }}
+          </div>
       </div>
       <div class="menu-button-end">
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success" (click)="addMenuItem(item)">
           <i class="bi bi-plus-circle"></i>
         </button>
       </div>

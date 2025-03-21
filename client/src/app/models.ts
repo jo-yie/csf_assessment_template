@@ -4,5 +4,10 @@ export interface MenuItem {
     _id: string
     name: string
     price: number, 
-    description: string
+    description: string, 
+    quantity: number
+}
+
+export interface Cart {
+    menuItems: MenuItem[]
 }

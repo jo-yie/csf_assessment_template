@@ -11,6 +11,7 @@ import { PlaceOrderComponent } from './components/place-order.component';
 import { ConfirmationComponent } from './components/confirmation.component';
 import { RouterModule, RouterOutlet, Routes } from '@angular/router';
 import { RestaurantService } from './restaurant.service';
+import { CartStore } from './cart.store';
 
 const appRoutes: Routes = [
   { path: '', component: MenuComponent },
@@ -26,7 +27,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes, { useHash: true })
   ],
-  providers: [ provideHttpClient(), RestaurantService ],
+  providers: [ provideHttpClient(), RestaurantService, CartStore ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
